@@ -3,7 +3,7 @@
 ![PNU Symbol](https://www.pusan.ac.kr/_contents/kor/_Img/07Intro/ui05.jpg)
 
 ## GitPNU
-This is the Term Project in "PNU - Computer Software Design & Lab" lecture.
+This is the Term Project in `PNU - Computer Software Design & Lab` lecture.
 
 ## License
 <img align="right" src="http://opensource.org/trademarks/opensource/OSI-Approved-License-100x137.png">
