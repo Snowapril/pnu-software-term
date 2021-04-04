@@ -1,8 +1,7 @@
-# PNU Software Term Project
+# GitPNU
 
 ![PNU Symbol](https://www.pusan.ac.kr/_contents/kor/_Img/07Intro/ui05.jpg)
-
-## GitPNU
+![Android github action](https://github.com/Snowapril/pnu-software-term/actions/workflows/android-ci.yml/badge.svg?branch=main)
 This is the Term Project in `PNU - Computer Software Design & Lab` lecture.
 
 ## License
