@@ -6,6 +6,9 @@
 
 This is the Term Project in `PNU - Computer Software Design & Lab` lecture.
 
+## Figma
+![image](https://user-images.githubusercontent.com/24654975/116201239-40321100-a774-11eb-919c-7c8028c8595b.png)
+
 ## License
 <img align="right" src="http://opensource.org/trademarks/opensource/OSI-Approved-License-100x137.png">
 
