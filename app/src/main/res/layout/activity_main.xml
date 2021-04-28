@@ -4,15 +4,70 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/gh_black"
     tools:context=".MainActivity">
 
-    <TextView
+
+    <ImageView
+        android:id="@+id/signin_logo_github"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="65dp"
+        android:layout_marginLeft="65dp"
+        android:layout_marginTop="143dp"
+        android:layout_marginEnd="65dp"
+        android:layout_marginRight="65dp"
+        android:layout_marginBottom="102dp"
+        android:contentDescription="Github Logo in Login Screen"
+        app:layout_constraintBottom_toTopOf="@+id/signin_btn_github"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/logo_github_high_res" />
+
+    <Button
+        android:id="@+id/signin_btn_google"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!"
+        android:layout_marginBottom="62dp"
+        android:drawableLeft="@drawable/logo_google"
+        android:text="Sign in with Google"
+        app:backgroundTint="#00FFFFFF"
+        app:cornerRadius="5dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.496"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/signin_btn_github"
+        app:strokeColor="@color/gh_grey"
+        app:strokeWidth="1dp" />
 
+    <Button
+        android:id="@+id/signin_btn_github"
+        android:layout_width="250dp"
+        android:layout_height="69dp"
+        android:drawableLeft="@drawable/logo_github"
+        android:text="Sign in with Github"
+        app:backgroundTint="#00FFFFFF"
+        app:cornerRadius="5dp"
+        app:layout_constraintBottom_toTopOf="@+id/signin_btn_google"
+        app:layout_constraintStart_toStartOf="@+id/signin_btn_google"
+        app:layout_constraintTop_toBottomOf="@+id/signin_logo_github"
+        app:strokeColor="@color/gh_grey"
+        app:strokeWidth="1dp" />
+
+    <TextView
+        android:id="@+id/signin_copyright_text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="16dp"
+        android:fontFamily="@font/open_sans_light"
+        android:text="@Copyright GitPNU Team"
+        android:textColor="@color/gh_white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <!-- signin_github -->
 </androidx.constraintlayout.widget.ConstraintLayout>
