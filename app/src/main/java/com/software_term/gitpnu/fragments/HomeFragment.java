@@ -2,13 +2,32 @@ package com.software_term.gitpnu.fragments;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.util.Log;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.software_term.gitpnu.R;
+import com.software_term.gitpnu.adapter.RepoAdapter;
+import com.software_term.gitpnu.api.GithubAPI;
+import com.software_term.gitpnu.api.GithubClient;
+import com.software_term.gitpnu.model.GithubRepo;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,33 +36,19 @@ import com.software_term.gitpnu.R;
  */
 public class HomeFragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
-
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    private String m_token;
+    RecyclerView m_recyclerView;
+    List<GithubRepo> m_datasource = new ArrayList<>();
+    RecyclerView.Adapter m_adapter;
 
     public HomeFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment HomeFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static HomeFragment newInstance(String param1, String param2) {
+    public static HomeFragment newInstance(String token) {
         HomeFragment fragment = new HomeFragment();
         Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
+        args.putString("token", token);
         fragment.setArguments(args);
         return fragment;
     }
@@ -51,16 +56,56 @@ public class HomeFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+        setHasOptionsMenu(true);
+        m_token = getArguments().getString("token");
+        loadRepositories();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
+        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_home, container, false);
+        m_recyclerView = (RecyclerView) rootView.findViewById(R.id.repos_recycler_view);
+
+        m_recyclerView.setHasFixedSize(true);
+        m_adapter = new RepoAdapter(m_datasource, R.layout.repo_list_item,
+                getActivity());
+        m_recyclerView.setLayoutManager(new LinearLayoutManager(getActivity()));
+        m_recyclerView.setAdapter(m_adapter);
+
+        Log.e("Frag", "MainFragment");
+        return rootView;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        m_recyclerView = (RecyclerView)getView().findViewById(R.id.repos_recycler_view);
+    }
+
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_home, menu);
+    }
+
+    public void loadRepositories(){
+        GithubClient apiService =
+                GithubAPI.getClient().create(GithubClient.class);
+
+        Call<List<GithubRepo>> call = apiService.getReposForUser("snowapril");
+        call.enqueue(new Callback<List<GithubRepo>>() {
+            @Override
+            public void onResponse(Call<List<GithubRepo>> call, Response<List<GithubRepo>> response) {
+                m_datasource.clear();
+                m_datasource.addAll(response.body());
+                m_adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onFailure(Call<List<GithubRepo>> call, Throwable t) {
+                // Log error here since request failed
+                Log.e("Repos", t.toString());
+            }
+
+        });
     }
 }
