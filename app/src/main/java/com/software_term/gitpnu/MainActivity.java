@@ -75,6 +75,7 @@ public class MainActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(Call<AccessToken> call, Response<AccessToken> response) {
                     Intent intent = new Intent(MainActivity.this, HomeActivity.class);
+                    intent.putExtra("token", response.body().getAccessToken());
                     startActivity(intent);
                 }
                 @Override
