@@ -2,11 +2,16 @@ plugins {
     id 'com.android.application'
 }
 
+def apikeyPropertiesFile = rootProject.file("apikey.properties")
+def apikeyProperties = new Properties()
+apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.3"
 
     defaultConfig {
+        buildConfigField("String", "GITHUB_SECRET_KEY", apikeyProperties['GITHUB_SECRET_KEY'])
         applicationId "com.software_term.gitpnu"
         minSdkVersion 16
         targetSdkVersion 30

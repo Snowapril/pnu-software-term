@@ -25,7 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 public class MainActivity extends AppCompatActivity {
 
     private String m_clientID = "6c0eecd346b825ffb473";
-    private String m_clientSecret = "636601650dfc3c5814a9964ca0d650d5e8cc3173 ";
+    private String m_clientSecret = BuildConfig.GITHUB_SECRET_KEY;
     private String m_redirectURL = "gitpnu://callback";
 
     @Override
