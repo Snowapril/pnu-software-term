@@ -8,22 +8,12 @@
     android:background="@color/gh_black"
     tools:context=".windows.IssueActivity">
 
-    <androidx.core.widget.NestedScrollView
-        android:id="@+id/repo_detail_scrollview"
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/issues_recycler_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:clipToPadding="false"
-        android:paddingBottom="@dimen/fab_bottom_padding"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/header"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp">
-
-        </androidx.constraintlayout.widget.ConstraintLayout>
-
-    </androidx.core.widget.NestedScrollView>
+        android:layout_marginTop="8dp"
+        android:background="@color/gh_light_black"
+        android:padding="16dp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
