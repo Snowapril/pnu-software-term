@@ -79,13 +79,14 @@ public class ProfileFragment extends Fragment {
         super.onCreate(savedInstanceState);
         setHasOptionsMenu(true);
         m_token = getArguments().getString("token");
-        //loadData();
+        loadData();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_home, container, false);
+        Log.d("ProfileFragment", "onCreateView");
+        ViewGroup rootView = (ViewGroup)inflater.inflate(R.layout.fragment_profile, container, false);
         avatarImg = (ImageView)rootView.findViewById(R.id.avatar);
         userNameTV = (TextView)rootView.findViewById(R.id.username);
         followersTV = (TextView)rootView.findViewById(R.id.followers);
@@ -93,7 +94,6 @@ public class ProfileFragment extends Fragment {
         logIn = (TextView)rootView.findViewById(R.id.logIn);
         email = (TextView)rootView.findViewById(R.id.email);
 
-        Log.e("Frag", "MainFragment");
         return rootView;
     }
 
@@ -103,15 +103,14 @@ public class ProfileFragment extends Fragment {
 
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
-        inflater.inflate(R.menu.menu_home, menu);
+        inflater.inflate(R.menu.menu_bottom_nav, menu);
     }
 
-    public class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
+    private class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
         @Override
         protected Bitmap doInBackground(String... urls) {
 
             try {
-
                 URL url = new URL(urls[0]);
                 HttpURLConnection connection = (HttpURLConnection) url.openConnection();
                 connection.connect();
@@ -132,11 +131,11 @@ public class ProfileFragment extends Fragment {
         }
     }
 
-    public void loadData(){
+    private void loadData(){
         GithubClient apiService =
                 GithubAPI.getClient().create(GithubClient.class);
 
-        Call<GithubUser> call = apiService.getUser("snowapril");
+        Call<GithubUser> call = apiService.getAuthroizedUser(String.format("token %s", m_token));
         call.enqueue(new Callback<GithubUser>() {
             @Override
             public void onResponse(Call<GithubUser> call, Response<GithubUser> response) {
