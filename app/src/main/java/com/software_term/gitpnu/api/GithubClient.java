@@ -1,4 +1,5 @@
 package com.software_term.gitpnu.api;
+import com.software_term.gitpnu.model.GithubIssue;
 import com.software_term.gitpnu.model.GithubRepoReadme;
 import com.software_term.gitpnu.model.GithubUser;
 import com.software_term.gitpnu.model.GithubRepo;
@@ -43,4 +44,8 @@ public interface GithubClient {
     @Headers("Accept: application/vnd.github.v3+json")
     @GET("/repos/{user}/{repo}/readme")
     Call<GithubRepoReadme> getRepoReadme(@Path("user") String user, @Path("repo") String repo, @Header("Authorization") String token);
+
+    @Headers("Accept: application/vnd.github.v3+json")
+    @GET("/repos/{owner}/{repo}/issues")
+    Call<List<GithubIssue>> getRepoIssues(@Path("owner") String owner, @Path("repo") String repo, @Header("Authorization") String token);
 }
