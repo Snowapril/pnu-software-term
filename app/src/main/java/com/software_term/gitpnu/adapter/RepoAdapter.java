@@ -28,6 +28,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 
+import com.software_term.gitpnu.api.ImageDownloader;
 import com.software_term.gitpnu.model.GithubRepo;
 import com.software_term.gitpnu.windows.RepoActivity;
 
@@ -61,6 +62,7 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder
         LinearLayout reposLayout;
         ImageView avatar;
         TextView repoName;
+        TextView ownerLogin;
         TextView repoURL;
         TextView repoDate;
         TextView repoID;
@@ -72,6 +74,7 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder
             reposLayout = (LinearLayout) v.findViewById(R.id.repo_item_layout);
             avatar = (ImageView) v.findViewById(R.id.avatar_img);
             repoName = (TextView) v.findViewById(R.id.repo_name);
+            ownerLogin = (TextView) v.findViewById(R.id.owner_login);
             repoURL = (TextView) v.findViewById(R.id.repo_url);
             repoDate = (TextView) v.findViewById(R.id.repo_date);
             repoID = (TextView) v.findViewById(R.id.repo_id);
@@ -93,25 +96,6 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder
         return new RepoViewHolder(view, m_onNoteListener);
     }
 
-    private class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
-        @Override
-        protected Bitmap doInBackground(String... urls) {
-            try {
-                URL url = new URL(urls[0]);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
-                InputStream inputStream = connection.getInputStream();
-                Bitmap myBitmap = BitmapFactory.decodeStream(inputStream);
-                return myBitmap;
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return null;
-        }
-    }
-
     @Override
     public void onBindViewHolder(RepoViewHolder holder, final int position) {
 
@@ -126,6 +110,7 @@ public class RepoAdapter extends RecyclerView.Adapter<RepoAdapter.RepoViewHolder
         holder.avatar.getLayoutParams().height=220;
         holder.avatar.getLayoutParams().width=220;
 
+        holder.ownerLogin.setText(m_repos.get(position).getOwner().getLogin());
         holder.repoName.setText(m_repos.get(position).getName());
         holder.repoName.setText(m_repos.get(position).getName());
         holder.repoURL.setText(m_repos.get(position).getUrl());

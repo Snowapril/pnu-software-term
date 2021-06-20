@@ -26,6 +26,7 @@ import com.software_term.gitpnu.R;
 import com.software_term.gitpnu.adapter.RepoAdapter;
 import com.software_term.gitpnu.api.GithubAPI;
 import com.software_term.gitpnu.api.GithubClient;
+import com.software_term.gitpnu.api.ImageDownloader;
 import com.software_term.gitpnu.model.GithubRepo;
 import com.software_term.gitpnu.model.GithubUser;
 
@@ -104,31 +105,6 @@ public class ProfileFragment extends Fragment {
     @Override
     public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater inflater) {
         inflater.inflate(R.menu.menu_bottom_nav, menu);
-    }
-
-    private class ImageDownloader extends AsyncTask<String, Void, Bitmap> {
-        @Override
-        protected Bitmap doInBackground(String... urls) {
-
-            try {
-                URL url = new URL(urls[0]);
-                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-                connection.connect();
-                InputStream inputStream = connection.getInputStream();
-                Bitmap myBitmap = BitmapFactory.decodeStream(inputStream);
-                return myBitmap;
-
-            } catch (MalformedURLException e) {
-
-                e.printStackTrace();
-
-            } catch (IOException e) {
-
-                e.printStackTrace();
-
-            }
-            return null;
-        }
     }
 
     private void loadData(){
