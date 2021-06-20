@@ -6,6 +6,7 @@
     <color name="white">#FFFFFFFF</color>
     <color name="gh_black">#0D1117</color>
     <color name="gh_white">#F0F6FC</color>
+    <color name="gh_dark">#425166</color>
     <color name="gh_grey">#DDDDDD</color>
     <color name="gh_light_black">#161B22</color>
     <color name="gh_dark_grey">#77777F</color>
