@@ -5,6 +5,13 @@
     <string name="action">Action</string>
     <string name="calendar">Calendar</string>
     <string name="profile">Profile</string>
+    <string name="issues">Issues</string>
+    <string name="branch_master">master</string>
+    <string name="pull_requests">Pull Requests</string>
+    <string name="commits">Commits</string>
+    <string name="browse_code">Browse Code</string>
+    <string name="watchers">Watchers</string>
+    <string name="license">License</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
