@@ -6,14 +6,12 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
-    android:orientation="horizontal"
-    android:layout_marginTop="12dp"
-    android:layout_margin="5dp">
+    android:orientation="horizontal">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="10dp">
+        android:padding="4dp">
 
         <ImageView
             android:id="@+id/avatar_img"
@@ -23,7 +21,8 @@
             android:layout_marginTop="4dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/repo_id"
-            app:srcCompat="@drawable/logo_github" />
+            app:srcCompat="@drawable/logo_github"
+            android:layout_marginLeft="8dp" />
 
         <TextView
             android:id="@+id/repo_id"
@@ -41,9 +40,10 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
             android:layout_marginLeft="16dp"
-            android:textColor="@color/gh_white"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/gh_blue"
             android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/repo_id"
+            app:layout_constraintStart_toEndOf="@+id/avatar_img"
             app:layout_constraintTop_toTopOf="parent"
             tools:text="102338403" />
 
@@ -51,27 +51,25 @@
             android:id="@+id/repo_name"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="12dp"
             android:ellipsize="end"
             android:textColor="@color/gh_white"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/repo_date"
-            app:layout_constraintHorizontal_bias="0.677"
-            app:layout_constraintStart_toEndOf="@+id/avatar_img"
-            app:layout_constraintTop_toBottomOf="@+id/owner_login"
+            app:layout_constraintStart_toEndOf="@+id/owner_login"
+            app:layout_constraintTop_toTopOf="parent"
             tools:text="BackEnd" />
 
         <TextView
             android:id="@+id/repo_url"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginStart="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
             android:textColor="@color/gh_grey"
             android:textSize="12sp"
-            app:layout_constraintEnd_toStartOf="@+id/repo_date"
-            app:layout_constraintHorizontal_bias="0.276"
             app:layout_constraintStart_toEndOf="@+id/avatar_img"
             app:layout_constraintTop_toBottomOf="@+id/repo_name"
             tools:text="http://github.com/rkswlrbduf/backend" />
