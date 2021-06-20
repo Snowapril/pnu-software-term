@@ -132,6 +132,6 @@ public class GithubRepo {
     }
 
     public String getLicenseName() {
-        return license.getName();
+        return license == null ? null : license.getName();
     }
 }
