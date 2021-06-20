@@ -1,4 +1,5 @@
 package com.software_term.gitpnu.api;
+import com.software_term.gitpnu.model.GithubRepoReadme;
 import com.software_term.gitpnu.model.GithubUser;
 import com.software_term.gitpnu.model.GithubRepo;
 
@@ -21,12 +22,25 @@ public interface GithubClient {
             @Field("client_secret") String clientSecret,
             @Field("code") String code);
 
+    @Headers("Accept: application/vnd.github.v3+json")
+    @GET("/user")
+    Call<GithubUser> getAuthroizedUser(@Header("Authorization") String token);
+
     @GET("/users/{user}")
     Call<GithubUser> getUser(@Path("user") String user);
 
+    @Headers("Accept: application/vnd.github.v3+json")
     @GET("/user/repos")
     Call<List<GithubRepo>> getRepos(@Header("Authorization") String token);
 
     @GET("/users/{user}/repos")
     Call<List<GithubRepo>> getReposForUser(@Path("user") String user);
+
+    @Headers("Accept: application/vnd.github.v3+json")
+    @GET("/repos/{user}/{repo}")
+    Call<GithubRepo> getRepoDetail(@Path("user") String user, @Path("repo") String repo, @Header("Authorization") String token);
+
+    @Headers("Accept: application/vnd.github.v3+json")
+    @GET("/repos/{user}/{repo}/readme")
+    Call<GithubRepoReadme> getRepoReadme(@Path("user") String user, @Path("repo") String repo, @Header("Authorization") String token);
 }
