@@ -17,6 +17,11 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
+      - name: Create secret key file
+        env:
+          SECRET_KEY: ${{ secrets.GITPNU_KEY }}
+        run: |
+          echo $SECRET_KEY >> ./apikey.properties
       - name: Build debug APK
         run: bash ./gradlew assembleDebug --stacktrace
       - name: Upload APK
