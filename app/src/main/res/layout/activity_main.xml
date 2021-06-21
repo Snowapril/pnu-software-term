@@ -29,8 +29,8 @@
 
     <Button
         android:id="@+id/signin_btn_google"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="260dp"
+        android:layout_height="69dp"
         android:layout_marginBottom="62dp"
         android:drawableLeft="@drawable/logo_google"
         android:text="Sign in with Google"
@@ -46,7 +46,7 @@
 
     <Button
         android:id="@+id/signin_btn_github"
-        android:layout_width="250dp"
+        android:layout_width="260dp"
         android:layout_height="69dp"
         android:drawableLeft="@drawable/logo_github"
         android:text="Sign in with Github"
