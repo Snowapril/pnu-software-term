@@ -4,7 +4,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.Spanned;
@@ -12,6 +15,7 @@ import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.software_term.gitpnu.R;
@@ -30,11 +34,17 @@ import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Collection;
+import java.util.Collections;
 import java.util.Set;
 
 import io.noties.markwon.Markwon;
 import io.noties.markwon.ext.tables.TablePlugin;
+import io.noties.markwon.image.ImageItem;
 import io.noties.markwon.image.ImagesPlugin;
+import io.noties.markwon.image.SchemeHandler;
+import io.noties.markwon.image.data.DataUriSchemeHandler;
+import io.noties.markwon.image.file.FileSchemeHandler;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -55,6 +65,29 @@ public class RepoActivity extends AppCompatActivity {
         m_token = getIntent().getStringExtra("token");
         String login = getIntent().getStringExtra("login");
         String repo = getIntent().getStringExtra("repo");
+
+        m_binding.starBtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                GithubClient apiService = GithubAPI.getClient().create(GithubClient.class);
+                Call<Void> repoCall = apiService.starRepository(login, repo, String.format("token %s", m_token));
+                repoCall.enqueue(new Callback<Void>() {
+                    @Override
+                    public void onResponse(Call<Void> call, Response<Void> response) {
+                        if (response.code() == 204) {
+                            modifyStarBtn(login, repo);
+                        }
+
+                    }
+
+                    @Override
+                    public void onFailure(Call<Void> call, Throwable t) {
+                        // Log error here since request failed
+                        Log.e("Repos", t.toString());
+                    }
+                });
+            }
+        });
 
         loadRepo(login, repo);
     }
@@ -89,6 +122,8 @@ public class RepoActivity extends AppCompatActivity {
                 if (repoBody.getLicenseName() != null) {
                     m_binding.licenseType.setText(repoBody.getLicenseName());
                 }
+
+                modifyStarBtn(username, repo);
                 loadReadme(username, repo);
 
                 m_binding.issue.setOnClickListener(new View.OnClickListener() {
@@ -111,6 +146,30 @@ public class RepoActivity extends AppCompatActivity {
         });
     }
 
+    private void modifyStarBtn(String username, String repo) {
+        GithubClient apiService = GithubAPI.getClient().create(GithubClient.class);
+        Call<Void> repoCall = apiService.checkUserStarred(username, repo, String.format("token %s", m_token));
+        repoCall.enqueue(new Callback<Void>() {
+            @Override
+            public void onResponse(Call<Void> call, Response<Void> response) {
+                if (response.code() == 204) {
+                    m_binding.starBtn.setText("STARRED");
+                    m_binding.starBtn.setBackgroundColor(getResources().getColor(R.color.gh_blue));
+                }
+                else {
+                    m_binding.starBtn.setText("STAR");
+                    m_binding.starBtn.setBackgroundColor(getResources().getColor(R.color.gh_light_black));
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Void> call, Throwable t) {
+                // Log error here since request failed
+                Log.e("Repos", t.toString());
+            }
+        });
+    }
+
     private void loadReadme(String username, String repo){
         GithubClient apiService = GithubAPI.getClient().create(GithubClient.class);
         Call<GithubRepoReadme> repoCall = apiService.getRepoReadme(username, repo, String.format("token %s", m_token));
@@ -126,7 +185,38 @@ public class RepoActivity extends AppCompatActivity {
                         readmeContents = task.execute(response.body().getDownloadUrl()).get();
 
                         final Markwon markwon = Markwon.builder(context)
-                                .usePlugin(ImagesPlugin.create())
+                                .usePlugin(ImagesPlugin.create(new ImagesPlugin.ImagesConfigure() {
+                                    @Override
+                                    public void configureImages(@NonNull ImagesPlugin plugin) {
+                                        plugin.addSchemeHandler(DataUriSchemeHandler.create());
+                                        plugin.addSchemeHandler(FileSchemeHandler.createWithAssets(context));
+                                        // for example to return a drawable resource
+                                        plugin.addSchemeHandler(new SchemeHandler() {
+                                            @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+                                            @NonNull
+                                            @Override
+                                            public ImageItem handle(@NonNull String raw, @NonNull Uri uri) {
+
+                                                // will handle URLs like `drawable://ic_account_24dp_white`
+                                                final int resourceId = context.getResources().getIdentifier(
+                                                        raw.substring("drawable://".length()),
+                                                        "drawable",
+                                                        context.getPackageName());
+
+                                                // it's fine if it throws, async-image-loader will catch exception
+                                                final Drawable drawable = context.getDrawable(resourceId);
+
+                                                return ImageItem.withResult(drawable);
+                                            }
+
+                                            @NonNull
+                                            @Override
+                                            public Collection<String> supportedSchemes() {
+                                                return Collections.singleton("drawable");
+                                            }
+                                        });
+                                    }
+                                }))
                                 .usePlugin(TablePlugin.create(context))
                                 .build();
                         // parse markdown to commonmark-java Node
