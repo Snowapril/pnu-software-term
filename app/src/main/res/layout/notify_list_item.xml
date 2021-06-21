@@ -2,7 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/repo_item_layout"
+    android:id="@+id/issue_item_layout"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:gravity="center_vertical"
@@ -19,65 +19,74 @@
             android:id="@+id/avatar_img"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/repo_id"
+            app:layout_constraintTop_toBottomOf="@+id/owner_login"
             app:srcCompat="@drawable/logo_github" />
 
         <TextView
-            android:id="@+id/repo_id"
+            android:id="@+id/notify_id"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:textColor="@color/gh_white"
             android:textSize="12sp"
-            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/repo_name"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="102338403" />
+            tools:text="120" />
 
         <TextView
             android:id="@+id/owner_login"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="16dp"
-            android:layout_marginLeft="16dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="32dp"
             android:textColor="@color/gh_white"
             android:textSize="12sp"
-            app:layout_constraintStart_toEndOf="@+id/repo_id"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            tools:text="102338403" />
+            tools:text="snowapril" />
 
         <TextView
             android:id="@+id/repo_name"
             android:layout_width="wrap_content"
             android:layout_height="20dp"
-            android:layout_marginTop="4dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
             android:ellipsize="end"
             android:textColor="@color/gh_white"
             android:textSize="16sp"
-            app:layout_constraintEnd_toStartOf="@+id/repo_date"
-            app:layout_constraintHorizontal_bias="0.677"
-            app:layout_constraintStart_toEndOf="@+id/avatar_img"
-            app:layout_constraintTop_toBottomOf="@+id/owner_login"
-            tools:text="BackEnd" />
+            app:layout_constraintStart_toEndOf="@+id/owner_login"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="CubbyFlow" />
 
         <TextView
-            android:id="@+id/repo_url"
+            android:id="@+id/notify_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
-            android:textColor="@color/gh_grey"
+            android:textColor="@color/gh_white"
             android:textSize="12sp"
-            app:layout_constraintEnd_toStartOf="@+id/repo_date"
-            app:layout_constraintHorizontal_bias="0.276"
             app:layout_constraintStart_toEndOf="@+id/avatar_img"
             app:layout_constraintTop_toBottomOf="@+id/repo_name"
             tools:text="http://github.com/rkswlrbduf/backend" />
 
         <TextView
-            android:id="@+id/repo_date"
+            android:id="@+id/notify_last_comment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:textColor="@color/gh_grey"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/avatar_img"
+            app:layout_constraintTop_toBottomOf="@+id/notify_title"
+            tools:text="Closed #120" />
+
+        <TextView
+            android:id="@+id/notify_date"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textColor="@color/gh_white"
