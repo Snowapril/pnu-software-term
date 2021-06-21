@@ -15,6 +15,79 @@
         android:layout_height="match_parent"
         android:padding="10dp">
 
+        <View
+            android:id="@+id/run_state"
+            android:layout_width="9dp"
+            android:layout_height="43dp"
+            android:layout_weight="1"
+            android:background="#36DA78"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/run_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/gh_white"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/run_state"
+            app:layout_constraintTop_toBottomOf="@+id/head_commit_title"
+            tools:text="102338403" />
+
+        <TextView
+            android:id="@+id/commit_id"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="4dp"
+            android:textColor="@color/gh_white"
+            android:textSize="12sp"
+            app:layout_constraintStart_toEndOf="@+id/run_name"
+            app:layout_constraintTop_toBottomOf="@+id/head_commit_title"
+            tools:text="a6771733e" />
+
+        <TextView
+            android:id="@+id/head_commit_title"
+            android:layout_width="wrap_content"
+            android:layout_height="20dp"
+            android:ellipsize="end"
+            android:textColor="@color/gh_white"
+            android:textSize="16sp"
+            app:layout_constraintStart_toEndOf="@+id/run_state"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="feat(action) : test commit" />
+
+        <TextView
+            android:id="@+id/run_created_at"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:textColor="@color/gh_white"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.733"
+            app:layout_constraintStart_toEndOf="@+id/run_head_branch"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="2021/06/15" />
+
+        <TextView
+            android:id="@+id/run_head_branch"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:layout_marginEnd="104dp"
+            android:layout_marginRight="104dp"
+            android:textColor="@color/gh_blue"
+            android:textSize="12sp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toEndOf="@+id/head_commit_title"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="main" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 
