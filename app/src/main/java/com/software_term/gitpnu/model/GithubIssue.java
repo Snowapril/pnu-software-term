@@ -15,6 +15,12 @@ public class GithubIssue {
     @SerializedName("updated_at")
     private String updatedAt;
 
+    @SerializedName("title")
+    private String title;
+
+    @SerializedName("state")
+    private String state;
+
     public RepoOwner getUser() {
         return user;
     }
@@ -25,5 +31,13 @@ public class GithubIssue {
 
     public List<GithubIssueAssignee> getAssignees() {
         return assignees;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public String getState() {
+        return state;
     }
 }

@@ -16,13 +16,13 @@
         android:padding="10dp">
 
         <View
-            android:id="@+id/view"
-            android:layout_width="9dp"
-            android:layout_height="43dp"
-            android:layout_weight="1"
-            android:background="#36DA78"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
+        android:id="@+id/issue_state"
+        android:layout_width="9dp"
+        android:layout_height="43dp"
+        android:layout_weight="1"
+        android:background="#36DA78"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/issuer"
