@@ -14,6 +14,7 @@ import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
 import retrofit2.http.POST;
+import retrofit2.http.PUT;
 import retrofit2.http.Path;
 
 public interface GithubClient {
@@ -36,6 +37,18 @@ public interface GithubClient {
     @Headers("Accept: application/vnd.github.v3+json")
     @GET("/repos/{owner}/{repo}/actions/runs")
     Call<GithubAction> getActions(@Path("owner") String owner, @Path("repo") String repo, @Header("Authorization") String token);
+
+    @Headers("Accept: application/vnd.github.v3+json")
+    @GET("/repos/{owner}/{repo}/actions/runs/{run_id}/logs")
+    Call<Void> getActionLogURL(@Path("owner") String owner, @Path("repo") String repo, @Path("run_id") String run_id, @Header("Authorization") String token);
+
+    @Headers("Accept: application/vnd.github.v3+json")
+    @GET("/user/starred/{owner}/{repo}")
+    Call<Void> checkUserStarred(@Path("owner") String owner, @Path("repo") String repo, @Header("Authorization") String token);
+
+    @Headers("Accept: application/vnd.github.v3+json")
+    @PUT("/user/starred/{owner}/{repo}")
+    Call<Void> starRepository(@Path("owner") String owner, @Path("repo") String repo, @Header("Authorization") String token);
 
     @GET("/users/{user}")
     Call<GithubUser> getUser(@Path("user") String user);
