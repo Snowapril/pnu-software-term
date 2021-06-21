@@ -1,5 +1,7 @@
 package com.software_term.gitpnu.api;
+import com.software_term.gitpnu.model.GithubAction;
 import com.software_term.gitpnu.model.GithubIssue;
+import com.software_term.gitpnu.model.GithubNotify;
 import com.software_term.gitpnu.model.GithubRepoReadme;
 import com.software_term.gitpnu.model.GithubUser;
 import com.software_term.gitpnu.model.GithubRepo;
@@ -27,6 +29,14 @@ public interface GithubClient {
     @GET("/user")
     Call<GithubUser> getAuthroizedUser(@Header("Authorization") String token);
 
+    @Headers("Accept: application/vnd.github.v3+json")
+    @GET("/notifications")
+    Call<List<GithubNotify>> getNotifications(@Header("Authorization") String token);
+
+    @Headers("Accept: application/vnd.github.v3+json")
+    @GET("/repos/{owner}/{repo}/actions/runs")
+    Call<GithubAction> getActions(@Path("owner") String owner, @Path("repo") String repo, @Header("Authorization") String token);
+
     @GET("/users/{user}")
     Call<GithubUser> getUser(@Path("user") String user);
 
@@ -46,6 +56,6 @@ public interface GithubClient {
     Call<GithubRepoReadme> getRepoReadme(@Path("user") String user, @Path("repo") String repo, @Header("Authorization") String token);
 
     @Headers("Accept: application/vnd.github.v3+json")
-    @GET("/repos/{owner}/{repo}/issues")
+    @GET("/repos/{owner}/{repo}/issues?state=all")
     Call<List<GithubIssue>> getRepoIssues(@Path("owner") String owner, @Path("repo") String repo, @Header("Authorization") String token);
 }
