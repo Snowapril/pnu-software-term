@@ -11,4 +11,6 @@
     <color name="gh_light_black">#161B22</color>
     <color name="gh_dark_grey">#77777F</color>
     <color name="gh_blue">#4C8FD2</color>
+    <color name="gh_run_success">#2EA043</color>
+    <color name="gh_run_fail">#F85149</color>
 </resources>
